@@ -1,0 +1,18 @@
+GET http://localhost:3000/testing
+
+###
+
+GET http://localhost:3000/testing/62833965a4a8802f641fd67d
+
+
+###
+POST http://localhost:3000/testing HTTP/1.1
+content-type: application/json
+
+{
+    "name": "PruebaName2",
+    "quantity": "PruebaCantidad2",
+    "price": "PruebaPrecio2",
+    "color": "PruebaColor2",
+    "date": "PruebaFecha2"
+}
