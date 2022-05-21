@@ -1,12 +1,12 @@
-GET http://localhost:3000/testing
+GET http://localhost:3000/store
 
 ###
 
-GET http://localhost:3000/testing/62833965a4a8802f641fd67d
+GET http://localhost:3000/store/62833965a4a8802f641fd67d
 
 
 ###
-POST http://localhost:3000/testing HTTP/1.1
+POST http://localhost:3000/store HTTP/1.1
 content-type: application/json
 
 {
@@ -16,3 +16,10 @@ content-type: application/json
     "color": "PruebaColor2",
     "date": "PruebaFecha2"
 }
+
+
+### 
+GET https://momsstore.herokuapp.com/store
+
+###
+GET https://momsstore.herokuapp.com/store/62833965a4a8802f641fd67d

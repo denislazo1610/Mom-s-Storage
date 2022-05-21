@@ -11,7 +11,7 @@
     "https"
   ],
   "paths": {
-    "/testing/": {
+    "/store/": {
       "get": {
         "description": "",
         "parameters": [],
@@ -56,7 +56,7 @@
         }
       }
     },
-    "/testing/{id}": {
+    "/store/{id}": {
       "get": {
         "description": "",
         "parameters": [
