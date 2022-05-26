@@ -7,7 +7,9 @@ const gettingInfoStorage = (req, res) => {
 };
 
 const gettingSingleData = (req, res) => {
-  storage.findById(req.params.id).then((result) => {
+  const id = req.params.id;
+
+  storage.findById(id).then((result) => {
     res.send(result);
   });
 };
@@ -24,4 +26,35 @@ const creatingNewData = (req, res) => {
   res.send(newData);
 };
 
-module.exports = { gettingInfoStorage, gettingSingleData, creatingNewData };
+const updatingData = (req, res) => {
+  const id = req.params.id;
+  var updateData = {
+    name: req.body.name,
+    quantity: req.body.quantity,
+    price: req.body.price,
+    color: req.body.color,
+    date: req.body.date,
+  };
+
+  storage.findByIdAndUpdate(id, updateData, function () {
+    res.send(updateData);
+  });
+};
+
+const deletingData = (req, res) => {
+  const id = req.params.id;
+
+  storage.findByIdAndDelete(id, function () {
+    storage.find().then((result) => {
+      res.send(result);
+    });
+  });
+};
+
+module.exports = {
+  gettingInfoStorage,
+  gettingSingleData,
+  creatingNewData,
+  updatingData,
+  deletingData,
+};
