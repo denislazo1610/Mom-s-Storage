@@ -19,6 +19,16 @@ app
   .use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, options))
   .use("/", require("./routes/index"));
 
+app.use((err, req, res, next) => {
+  res.status(err.status);
+  res.send({
+    error: {
+      status: err.status || 500,
+      message: err.message,
+    },
+  });
+});
+
 app.listen(port, () => {
   console.log(`Listening on port: ${port}`);
 });

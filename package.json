@@ -19,9 +19,11 @@
   },
   "homepage": "https://github.com/denislazo1610/Mom-s-Storage#readme",
   "dependencies": {
+    "@hapi/joi": "^17.1.1",
     "body-parser": "^1.20.0",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "http-errors": "^2.0.0",
     "mongoose": "^6.3.3",
     "swagger-ui-express": "^4.4.0"
   },

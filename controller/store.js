@@ -1,4 +1,7 @@
 const storage = require("../connectDB/schemaStorage");
+const Joi = require("@hapi/joi");
+const createError = require("http-errors");
+const { validationStorage } = require("../connectDB/validation");
 
 const gettingInfoStorage = (req, res) => {
   storage.find().then((result) => {
@@ -6,12 +9,21 @@ const gettingInfoStorage = (req, res) => {
   });
 };
 
-const gettingSingleData = (req, res) => {
+const gettingSingleData = (req, res, next) => {
   const id = req.params.id;
 
-  storage.findById(id).then((result) => {
-    res.send(result);
-  });
+  storage
+    .findById(id)
+    .then((result) => {
+      if (!result) {
+        throw createError(405, "This clothes is not available");
+      } else {
+        res.send(result);
+      }
+    })
+    .catch((error) => {
+      next(error);
+    });
 };
 
 const creatingNewData = (req, res) => {

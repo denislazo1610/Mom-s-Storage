@@ -2,7 +2,7 @@ GET http://localhost:3000/store
 
 ###
 
-GET http://localhost:3000/store/62890321905eb5c760ef9ca5s
+GET http://localhost:3000/store/628f9853120ec362d813b066
 
 
 ###
@@ -30,7 +30,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:3000/store/62890304905eb5c760ef9ca2
+DELETE http://localhost:3000/store/628f9853120ec362d813b066
 
 ### 
 GET https://momsstore.herokuapp.com/store
