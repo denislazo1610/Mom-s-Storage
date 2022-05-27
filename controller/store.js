@@ -25,7 +25,7 @@ const gettingSingleData = (req, res, next) => {
     .findById(id)
     .then((result) => {
       if (!result) {
-        throw createError(405, "This clothes is not available");
+        throw createError(404, "This clothes is not available");
       } else {
         res.send(result);
       }
@@ -48,7 +48,7 @@ const creatingNewData = (req, res, next) => {
     const { value, error } = validationStorage.validate(newData);
 
     if (error) {
-      throw createError(404, error.message);
+      throw createError(405, error.message);
     } else {
       storage.insertMany(newData);
       res.send(newData);
@@ -68,19 +68,26 @@ const updatingData = (req, res, next) => {
     date: req.body.date,
   };
 
-  try {
-    const { value, error } = validationStorage.validate(updateData);
+  storage
+    .findById(id)
+    .then((result) => {
+      if (!result) {
+        throw createError(404, "This clothes is not available");
+      } else {
+        const { value, error } = validationStorage.validate(updateData);
 
-    if (error) {
-      throw createError(404, error.message);
-    } else {
-      storage.findByIdAndUpdate(id, updateData, function () {
-        res.send(updateData);
-      });
-    }
-  } catch (error) {
-    next(error);
-  }
+        if (error) {
+          throw createError(405, error.message);
+        } else {
+          storage.findByIdAndUpdate(id, updateData, function () {
+            res.send(updateData);
+          });
+        }
+      }
+    })
+    .catch((error) => {
+      next(error);
+    });
 };
 
 const deletingData = (req, res, next) => {
