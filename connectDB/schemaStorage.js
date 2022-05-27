@@ -5,8 +5,8 @@ const schema = mongoose.Schema;
 let storageSchema = new schema(
   {
     name: String,
-    quantity: String,
-    price: String,
+    quantity: Number,
+    price: Number,
     color: String,
     date: String,
   },

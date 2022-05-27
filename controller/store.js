@@ -3,10 +3,19 @@ const Joi = require("@hapi/joi");
 const createError = require("http-errors");
 const { validationStorage } = require("../connectDB/validation");
 
-const gettingInfoStorage = (req, res) => {
-  storage.find().then((result) => {
-    res.send(result);
-  });
+const gettingInfoStorage = (req, res, next) => {
+  storage
+    .find()
+    .then((result) => {
+      if (result.length == 0) {
+        throw createError(404, "No Clothes Available");
+      } else {
+        res.send(result);
+      }
+    })
+    .catch((error) => {
+      next(error);
+    });
 };
 
 const gettingSingleData = (req, res, next) => {
@@ -26,7 +35,7 @@ const gettingSingleData = (req, res, next) => {
     });
 };
 
-const creatingNewData = (req, res) => {
+const creatingNewData = (req, res, next) => {
   var newData = {
     name: req.body.name,
     quantity: req.body.quantity,
@@ -34,11 +43,22 @@ const creatingNewData = (req, res) => {
     color: req.body.color,
     date: req.body.date,
   };
-  storage.insertMany(newData);
-  res.send(newData);
+
+  try {
+    const { value, error } = validationStorage.validate(newData);
+
+    if (error) {
+      throw createError(404, error.message);
+    } else {
+      storage.insertMany(newData);
+      res.send(newData);
+    }
+  } catch (error) {
+    next(error);
+  }
 };
 
-const updatingData = (req, res) => {
+const updatingData = (req, res, next) => {
   const id = req.params.id;
   var updateData = {
     name: req.body.name,
@@ -48,19 +68,40 @@ const updatingData = (req, res) => {
     date: req.body.date,
   };
 
-  storage.findByIdAndUpdate(id, updateData, function () {
-    res.send(updateData);
-  });
+  try {
+    const { value, error } = validationStorage.validate(updateData);
+
+    if (error) {
+      throw createError(404, error.message);
+    } else {
+      storage.findByIdAndUpdate(id, updateData, function () {
+        res.send(updateData);
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
 };
 
-const deletingData = (req, res) => {
+const deletingData = (req, res, next) => {
   const id = req.params.id;
 
-  storage.findByIdAndDelete(id, function () {
-    storage.find().then((result) => {
-      res.send(result);
+  storage
+    .findById(id)
+    .then((result) => {
+      if (!result) {
+        throw createError(404, "This clothes did not exist before");
+      } else {
+        storage.findByIdAndDelete(id, function () {
+          storage.find().then((result) => {
+            res.send(result);
+          });
+        });
+      }
+    })
+    .catch((error) => {
+      next(error);
     });
-  });
 };
 
 module.exports = {

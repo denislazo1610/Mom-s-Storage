@@ -11,26 +11,26 @@ content-type: application/json
 
 {
     "name": "PruebaName2",
-    "quantity": "PruebaCantidad2",
-    "price": "PruebaPrecio2",
+    "quantity": 3,
+    "price": 2,
     "color": "PruebaColor2",
     "date": "PruebaFecha2"
 }
 
 ###
-PUT http://localhost:3000/store/62890304905eb5c760ef9ca2 HTTP/1.1
+PUT http://localhost:3000/store/62903a14520399cc4f1691dd HTTP/1.1
 Content-Type: application/json
 
 {
     "name": "TEst PUT",
-    "quantity": "TEst PUT",
-    "price": "TEst PUT",
+    "quantity": 4,
+    "price": 6,
     "color": "TEst PUT",
     "date": "TEst PUT"
 }
 
 ###
-DELETE http://localhost:3000/store/628f9853120ec362d813b066
+DELETE http://localhost:3000/store/628f8c088911bfe595289b5e
 
 ### 
 GET https://momsstore.herokuapp.com/store
