@@ -12,7 +12,7 @@ const config = {
   authRequired: false,
   auth0Logout: true,
   secret: process.env.SECRET,
-  baseURL: process.env.BASE_URL,
+  baseURL: port == 300 ? process.env.BASE_URL : process.env.BASE_URL_HEROKU,
   clientID: process.env.CLIENT_ID,
   issuerBaseURL: `https://${process.env.ISSUER_BASE_URL}`,
 };
