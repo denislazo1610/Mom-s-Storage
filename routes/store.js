@@ -10,6 +10,7 @@ const {
 } = require("../controller/store");
 
 router.get("/", gettingInfoStorage);
+
 router.get("/:id", gettingSingleData);
 
 router.post("/", creatingNewData);

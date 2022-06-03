@@ -32,6 +32,38 @@ Content-Type: application/json
 ###
 DELETE http://localhost:3000/store/62903cf41aeedf26e4740164
 
+###
+GET http://localhost:3000/customer
+###
+
+POST http://localhost:3000/customer HTTP/1.1
+content-type: application/json
+
+{
+    "FirstName": "Denis",
+    "LastName": "Lazo",
+    "BornPlace": "Peru, Lima",
+    "Trust": "9",
+    "Birthday": "13/08/1999",
+    "Residence": "Peruvian",
+    "LastActionActive": "6/02/2022"
+}
+###
+PUT http://localhost:3000/customer/629894f320b946bdb9152516 HTTP/1.1
+Content-Type: application/json
+
+{
+   "FirstName": "Daniela",
+    "LastName": "Lazo",
+    "BornPlace": "Peru, Lima",
+    "Trust": "9",
+    "Birthday": "13/08/1999",
+    "Residence": "Peruvian",
+    "LastActionActive": "6/02/2022"
+}
+###
+DELETE http://localhost:3000/customer/629894f320b946bdb9152516
+
 ### 
 GET https://momsstore.herokuapp.com/store
 

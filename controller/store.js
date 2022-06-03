@@ -1,7 +1,7 @@
-const storage = require("../connectDB/schemaStorage");
+const storage = require("../models/storage");
 const Joi = require("@hapi/joi");
 const createError = require("http-errors");
-const { validationStorage } = require("../connectDB/validation");
+const { validationStorage } = require("../validation/storage");
 
 const gettingInfoStorage = (req, res, next) => {
   storage
