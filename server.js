@@ -12,7 +12,7 @@ const config = {
   authRequired: false,
   auth0Logout: true,
   secret: process.env.SECRET,
-  baseURL: port == 3000 ? process.env.BASE_URL : process.env.BASE_URL_HEROKU,
+  baseURL: "https://momsstore.herokuapp.com",
   clientID: process.env.CLIENT_ID,
   issuerBaseURL: `https://${process.env.ISSUER_BASE_URL}`,
 };
