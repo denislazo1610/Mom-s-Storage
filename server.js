@@ -12,7 +12,7 @@ const config = {
   authRequired: false,
   auth0Logout: true,
   secret: process.env.SECRET,
-  baseURL: "https://momsstore.herokuapp.com",
+  baseURL: port == 3000 ? process.env.BASE_URL : process.env.BASE_URL_HEROKU,
   clientID: process.env.CLIENT_ID,
   issuerBaseURL: `https://${process.env.ISSUER_BASE_URL}`,
 };
@@ -42,7 +42,7 @@ app.get("/profile", requiresAuth(), (req, res) => {
 app
   .use(bodyParser.json())
   .use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, options))
-  .use("/", require("./routes/index"));
+  .use("/", requiresAuth(), require("./routes/index"));
 
 app.use((err, req, res, next) => {
   res.status(err.status);
