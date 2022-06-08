@@ -5,7 +5,6 @@ const bodyParser = require("body-parser");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swaggerOutput.json");
 const { auth, requiresAuth } = require("express-openid-connect");
-// const { requiresAuth } = require("express-openid-connect");
 const port = process.env.PORT || 3000;
 
 const config = {
@@ -16,8 +15,6 @@ const config = {
   clientID: process.env.CLIENT_ID,
   issuerBaseURL: `https://${process.env.ISSUER_BASE_URL}`,
 };
-
-// console.log(port == 3000 ? process.env.BASE_URL : process.env.BASE_URL_HEROKU);
 
 connectDB();
 
@@ -42,7 +39,7 @@ app.get("/profile", requiresAuth(), (req, res) => {
 app
   .use(bodyParser.json())
   .use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, options))
-  .use("/", require("./routes/index"));
+  .use("/", requiresAuth(), require("./routes/index"));
 
 app.use((err, req, res, next) => {
   res.status(err.status);
