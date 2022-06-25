@@ -39,7 +39,8 @@ app.get("/profile", requiresAuth(), (req, res) => {
 app
   .use(bodyParser.json())
   .use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, options))
-  .use("/", requiresAuth(), require("./routes/index"));
+  .use("/", require("./routes/index"));
+// .use("/", requiresAuth(), require("./routes/index"));
 
 app.use((err, req, res, next) => {
   res.status(err.status);
